@@ -35,13 +35,15 @@ const productSchema = new mongoose.Schema({
         required: true
     },
     checked:{
-        type:String,
+        type:Boolean,
         required: false
     },
     sold:{
-        type:String,
+        type:Number,
         required:0
     }
+},{
+    timestamps:true
 })
 
 

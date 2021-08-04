@@ -82,7 +82,7 @@ const userCtrl = {
                 res.json({accesstoken})
             })
     
-            res.json({rf_token})
+            // res.json({rf_token})
 
         }catch (err){
             return res.status(500).json({msg : err.message})
@@ -94,7 +94,20 @@ const userCtrl = {
             if(!user) return res.status(400).json({msg: "User does not exist"})
             res.json(user)
         }catch{
-            return res.json(500).json({msg: err.message})
+            return res.status(500).json({msg: err.message})
+        }
+    },
+    addCart: async (req, res) => {
+        try{
+            const user = await Users.findById(req.user.id)
+            if(!user) return res.status(400).json({msg: "user does not exist"})
+
+            await Users.findByIdAndUpdate({_id: req.user.id},{
+                cart: req.body.cart
+            })
+            return res.json({msg: "Added to cart"})
+        }catch (err){
+            return res.status(500).json({msg: err.message})
         }
     }
 }
